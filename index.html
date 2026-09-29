@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Fox Drive - Smart Vehicle Dashboard</title>
+  <title>Fox Drive - Crimson Dashboard</title>
   <style>
     :root {
-      --bg-color: #0d0705;
-      --card-bg: #1c120c;
-      --card-border: #2e1d13;
-      --accent-orange: #ff6b00;
+      --bg-color: #080404;
+      --card-bg: #140a0a;
+      --card-border: #2e1212;
+      --accent-red: #ef4444;
+      --accent-crimson: #dc2626;
       --accent-amber: #f59e0b;
       --accent-green: #22c55e;
       --accent-blue: #3b82f6;
-      --text-main: #f3f4f6;
+      --text-main: #f9fafb;
       --text-muted: #9ca3af;
     }
 
@@ -40,41 +41,41 @@
 
     .connect-card {
       background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px;
-      padding: 24px 18px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      padding: 24px 18px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 10px 30px rgba(220, 38, 38, 0.15);
     }
 
     .logo-icon {
-      width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--accent-orange);
+      width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--accent-red);
       display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto;
-      background: rgba(255, 107, 0, 0.1); font-size: 1.8rem;
+      background: rgba(239, 68, 68, 0.1); font-size: 1.8rem;
     }
 
-    .app-title { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; color: var(--accent-orange); }
+    .app-title { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; color: var(--accent-red); }
     .app-subtitle { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 20px; }
 
     .status-box {
-      background: #080402; border: 1px solid var(--card-border); border-radius: 14px;
+      background: #050202; border: 1px solid var(--card-border); border-radius: 14px;
       padding: 12px; text-align: left; margin-bottom: 16px;
     }
     .status-box-header { display: flex; justify-content: space-between; font-size: 0.65rem; font-weight: 800; color: var(--text-muted); margin-bottom: 6px; }
     .status-box-msg { font-size: 0.75rem; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
 
     .switch-box {
-      background: #080402; border: 1px solid var(--card-border); border-radius: 14px;
+      background: #050202; border: 1px solid var(--card-border); border-radius: 14px;
       padding: 4px; display: flex; margin-bottom: 8px;
     }
     .btn-conn-type {
       flex: 1; padding: 10px; border: none; border-radius: 10px; font-size: 0.75rem;
       font-weight: 800; color: var(--text-muted); background: transparent; cursor: pointer;
     }
-    .btn-conn-type.active { background: var(--accent-orange); color: #fff; }
+    .btn-conn-type.active { background: var(--accent-crimson); color: #fff; }
 
     .conn-note { font-size: 0.65rem; color: var(--text-muted); margin-bottom: 16px; text-align: left; padding: 0 4px; }
 
     .btn-main-action {
-      width: 100%; background: linear-gradient(135deg, #d97706, #ff6b00); color: #fff;
+      width: 100%; background: linear-gradient(135deg, #dc2626, #ef4444); color: #fff;
       border: none; padding: 14px; border-radius: 14px; font-size: 0.85rem; font-weight: 800;
-      cursor: pointer; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+      cursor: pointer; margin-bottom: 10px; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
       text-transform: uppercase; letter-spacing: 1px;
     }
 
@@ -94,13 +95,14 @@
 
     .tab-container { display: flex; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 3px; margin-bottom: 12px; }
     .tab-btn { flex: 1; padding: 12px; border: none; border-radius: 16px; font-size: 0.8rem; font-weight: 800; color: var(--text-muted); background: transparent; cursor: pointer; text-transform: uppercase; }
-    .tab-btn.active { background: var(--accent-orange); color: #ffffff; box-shadow: 0 2px 8px rgba(255, 107, 0, 0.4); }
+    .tab-btn.active { background: var(--accent-crimson); color: #ffffff; box-shadow: 0 2px 10px rgba(220, 38, 38, 0.4); }
 
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
     .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 10px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px; }
     .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 10px; }
     .grid-cells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 
@@ -111,7 +113,7 @@
     .val-main { font-size: 1.5rem; font-weight: 800; color: #fff; margin: 2px 0; }
     .unit { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; }
 
-    /* STYLES KHUSUS INDIKATOR REGEN & RIDING */
+    /* STYLES REGEN & RIDING BADGE */
     .drive-status-badge {
       font-size: 0.8rem; font-weight: 900; letter-spacing: 1px; color: var(--text-muted);
       margin-top: 8px; transition: all 0.3s ease;
@@ -127,28 +129,36 @@
       to { opacity: 1; }
     }
 
-    /* Cell Box Style */
+    /* KARTU RINGKASAN BMS DIPISAH */
+    .bms-card {
+      background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px;
+      padding: 10px 4px; text-align: center; display: flex; flex-direction: column; justify-content: center;
+    }
+    .bms-card-title { font-size: 0.55rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; }
+    .bms-card-val { font-size: 1.15rem; font-weight: 900; color: #fff; margin-top: 2px; }
+
+    /* CELL BOX GRID */
     .cell-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 8px 4px; text-align: center; }
-    .cell-box.has-offset { border-color: rgba(255, 107, 0, 0.4); background: rgba(255, 107, 0, 0.05); }
+    .cell-box.has-offset { border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.05); }
     .cell-name { font-size: 0.6rem; color: var(--text-muted); font-weight: 700; }
     .cell-voltage { font-size: 0.95rem; font-weight: 800; color: #fff; margin-top: 2px; }
 
     /* RAW DATA STREAM */
     .raw-section { margin-top: 16px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; }
-    .raw-title { font-size: 0.8rem; font-weight: 800; color: var(--accent-orange); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .raw-title { font-size: 0.8rem; font-weight: 800; color: var(--accent-red); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
     .raw-log-box {
-      background: #080402; border: 1px solid #2e1d13; border-radius: 10px; padding: 10px;
+      background: #050202; border: 1px solid #2e1212; border-radius: 10px; padding: 10px;
       font-family: 'Courier New', Courier, monospace; font-size: 0.85rem; font-weight: 700;
-      color: #ffaa00; word-break: break-all; max-height: 70px; overflow-y: auto; line-height: 1.3;
+      color: #f59e0b; word-break: break-all; max-height: 70px; overflow-y: auto; line-height: 1.3;
       margin-bottom: 12px;
     }
 
     .raw-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
     .raw-card {
-      background: #080402; border: 1px solid var(--card-border); border-radius: 10px;
+      background: #050202; border: 1px solid var(--card-border); border-radius: 10px;
       padding: 10px 8px; text-align: center; display: flex; flex-direction: column; justify-content: center;
     }
-    .raw-card-key { font-size: 0.6rem; color: var(--accent-orange); font-weight: 800; text-transform: uppercase; }
+    .raw-card-key { font-size: 0.6rem; color: var(--accent-red); font-weight: 800; text-transform: uppercase; }
     .raw-card-val { font-size: 1rem; font-weight: 800; color: #fff; margin-top: 4px; font-family: monospace; word-break: break-all; }
   </style>
 </head>
@@ -166,10 +176,10 @@
       <div class="status-box">
         <div class="status-box-header">
           <span>CONNECTION STATUS</span>
-          <span id="connTag" style="color: var(--accent-orange);">OFFLINE</span>
+          <span id="connTag" style="color: var(--accent-red);">OFFLINE</span>
         </div>
         <div class="status-box-msg">
-          <span style="color: var(--accent-orange);">●</span>
+          <span style="color: var(--accent-red);">●</span>
           <span id="connMsg">Pilih jalur koneksi lalu tekan Connect.</span>
         </div>
       </div>
@@ -193,8 +203,8 @@
     
     <div class="top-bar">
       <div id="statusBadge" class="status-badge"><div class="dot"></div><span id="statusTxt">BLE DISCONNECTED</span></div>
-      <button type="button" id="btnBackToConnect" style="background: transparent; border: none; color: var(--accent-orange); font-size: 0.8rem; font-weight: 800; cursor: pointer;">⚙ RECONNECT</button>
-      <div style="font-weight: 800; font-size: 0.9rem; color: var(--accent-orange);" id="clockTxt">00:00:00</div>
+      <button type="button" id="btnBackToConnect" style="background: transparent; border: none; color: var(--accent-red); font-size: 0.8rem; font-weight: 800; cursor: pointer;">⚙ RECONNECT</button>
+      <div style="font-weight: 800; font-size: 0.9rem; color: var(--accent-red);" id="clockTxt">00:00:00</div>
     </div>
 
     <div class="tab-container">
@@ -205,10 +215,9 @@
     <!-- TAB 1: DASHBOARD PORTRAIT -->
     <div id="tab-dashboard" class="tab-content active">
       <div class="card" style="padding: 20px 10px; margin-bottom: 10px;">
-        <div class="card-title" id="modeVal" style="color: var(--accent-orange); font-size: 1.1rem;">PARK</div>
+        <div class="card-title" id="modeVal" style="color: var(--accent-red); font-size: 1.1rem;">PARK</div>
         <div class="val-large" id="speedVal">0</div>
         <div class="unit" style="font-size: 0.8rem;">🏁 KM/H &nbsp;|&nbsp; <span id="rpmVal">0</span> RPM</div>
-        <!-- STATUS BADGE TERMASUK NOTIF REGEN -->
         <div class="drive-status-badge" id="driveStatus">— READY TO RIDE —</div>
       </div>
 
@@ -223,7 +232,7 @@
         </div>
         <div class="card">
           <div class="card-title">POWER</div>
-          <div class="val-main" style="color: var(--accent-orange);" id="powerVal">0 <span class="unit">W</span></div>
+          <div class="val-main" style="color: var(--accent-red);" id="powerVal">0 <span class="unit">W</span></div>
         </div>
       </div>
 
@@ -267,7 +276,7 @@
       <div class="grid-5">
         <div class="card">
           <div class="card-title">MIN CELL</div>
-          <div style="font-size: 0.85rem; font-weight: 800; color: var(--accent-orange); margin-top:2px;" id="minVal">-- V</div>
+          <div style="font-size: 0.85rem; font-weight: 800; color: var(--accent-red); margin-top:2px;" id="minVal">-- V</div>
           <div style="font-size: 0.55rem; color: var(--text-muted);" id="minCellRef">C--</div>
         </div>
         <div class="card">
@@ -289,12 +298,23 @@
         </div>
       </div>
 
-      <div class="card" style="margin-bottom: 10px; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center;">
-        <div style="font-size: 0.75rem; font-weight: 800; color: var(--accent-green);">● BMS OK</div>
-        <div style="font-size: 0.65rem; color: var(--text-muted);">
-          VOLT: <span style="color:#fff;" id="bmsPackVolt">76.4V</span> | 
-          CURR: <span style="color:#fff;" id="bmsCurrent">0.0A</span> | 
-          CYCLE: <span style="color:#fff;">128</span>
+      <!-- RINGKASAN BMS DIPISAH MENJADI 4 KOTAK TERSTRUKTUR -->
+      <div class="grid-4">
+        <div class="bms-card">
+          <div class="bms-card-title">BMS STATUS</div>
+          <div class="bms-card-val" style="color: var(--accent-green); font-size:0.95rem;">● BMS OK</div>
+        </div>
+        <div class="bms-card">
+          <div class="bms-card-title">PACK VOLT</div>
+          <div class="bms-card-val" style="color: var(--accent-red);" id="bmsPackVolt">76.4 V</div>
+        </div>
+        <div class="bms-card">
+          <div class="bms-card-title">CURRENT</div>
+          <div class="bms-card-val" style="color: var(--accent-red);" id="bmsCurrent">0.0 A</div>
+        </div>
+        <div class="bms-card">
+          <div class="bms-card-title">BATTERY CYCLE</div>
+          <div class="bms-card-val" style="color: var(--accent-blue);">128</div>
         </div>
       </div>
 
@@ -462,7 +482,7 @@
       if (data.v !== undefined && data.v > 0) {
         packVoltage = parseFloat(data.v);
         document.getElementById('voltVal').innerHTML = `${packVoltage.toFixed(1)} <span class="unit">V</span>`;
-        if (document.getElementById('bmsPackVolt')) document.getElementById('bmsPackVolt').innerText = packVoltage.toFixed(1) + "V";
+        if (document.getElementById('bmsPackVolt')) document.getElementById('bmsPackVolt').innerText = packVoltage.toFixed(1) + " V";
       }
 
       if (data.spd !== undefined) {
@@ -472,21 +492,19 @@
       }
       if (data.r !== undefined) document.getElementById('rpmVal').innerText = data.r;
 
-      // PEMROSESAN ARUS & DAYA TERMASUK DETEKSI REGEN
       let currentNum = 0;
       let powerNum = 0;
 
       if (data.a !== undefined) {
         currentNum = parseFloat(data.a);
         document.getElementById('currentVal').innerHTML = `${currentNum.toFixed(1)} <span class="unit">A</span>`;
-        if (document.getElementById('bmsCurrent')) document.getElementById('bmsCurrent').innerText = currentNum.toFixed(1) + "A";
+        if (document.getElementById('bmsCurrent')) document.getElementById('bmsCurrent').innerText = currentNum.toFixed(1) + " A";
       }
       if (data.p !== undefined) {
         powerNum = parseFloat(data.p);
         document.getElementById('powerVal').innerHTML = `${Math.abs(powerNum)} <span class="unit">W</span>`;
       }
 
-      // LOGIKA DETEKSI NOTIFIKASI REGEN / CHARGING
       const statusEl = document.getElementById('driveStatus');
       const isRegenActive = (currentNum < 0 || powerNum < 0 || (data.cr !== undefined && data.cr > 0 && data.r > 0));
 
