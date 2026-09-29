@@ -30,10 +30,9 @@
       width: 100%;
     }
 
-    /* Container Fleksibel Mengikuti Lebar HP */
     .container { width: 100%; max-width: 100%; }
 
-    /* ================= LAYAR 1: CONNECT SCREEN ================= */
+    /* LAYAR 1: CONNECT SCREEN */
     #screen-connect {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       min-height: 85vh; width: 100%;
@@ -84,7 +83,7 @@
       padding: 12px; border-radius: 14px; font-size: 0.75rem; font-weight: 800; cursor: pointer; text-transform: uppercase;
     }
 
-    /* ================= LAYAR 2: DASHBOARD MAIN ================= */
+    /* LAYAR 2: DASHBOARD MAIN */
     #screen-dashboard { display: none; width: 100%; }
 
     .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
@@ -100,7 +99,6 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* Grid Responsif Menyesuaikan Layar */
     .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 10px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
     .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 10px; }
@@ -113,13 +111,29 @@
     .val-main { font-size: 1.5rem; font-weight: 800; color: #fff; margin: 2px 0; }
     .unit { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; }
 
+    /* STYLES KHUSUS INDIKATOR REGEN & RIDING */
+    .drive-status-badge {
+      font-size: 0.8rem; font-weight: 900; letter-spacing: 1px; color: var(--text-muted);
+      margin-top: 8px; transition: all 0.3s ease;
+    }
+    .drive-status-badge.regen {
+      color: var(--accent-green);
+      text-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+      animation: blinkGreen 1s infinite alternate;
+    }
+
+    @keyframes blinkGreen {
+      from { opacity: 0.7; }
+      to { opacity: 1; }
+    }
+
     /* Cell Box Style */
     .cell-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 8px 4px; text-align: center; }
     .cell-box.has-offset { border-color: rgba(255, 107, 0, 0.4); background: rgba(255, 107, 0, 0.05); }
     .cell-name { font-size: 0.6rem; color: var(--text-muted); font-weight: 700; }
     .cell-voltage { font-size: 0.95rem; font-weight: 800; color: #fff; margin-top: 2px; }
 
-    /* RAW DATA STREAM (SELALU TAMPIL) */
+    /* RAW DATA STREAM */
     .raw-section { margin-top: 16px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; }
     .raw-title { font-size: 0.8rem; font-weight: 800; color: var(--accent-orange); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
     .raw-log-box {
@@ -129,7 +143,6 @@
       margin-bottom: 12px;
     }
 
-    /* GRID RAW KOTAK-KOTAK LANGSUNG STANDBY */
     .raw-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
     .raw-card {
       background: #080402; border: 1px solid var(--card-border); border-radius: 10px;
@@ -143,7 +156,7 @@
 
 <div class="container">
 
-  <!-- ================= LAYAR 1: CONNECT SCREEN ================= -->
+  <!-- LAYAR 1: CONNECT SCREEN -->
   <div id="screen-connect">
     <div class="connect-card">
       <div class="logo-icon">🦊</div>
@@ -175,7 +188,7 @@
     </div>
   </div>
 
-  <!-- ================= LAYAR 2: DASHBOARD TELEMETRY ================= -->
+  <!-- LAYAR 2: DASHBOARD TELEMETRY -->
   <div id="screen-dashboard">
     
     <div class="top-bar">
@@ -195,7 +208,8 @@
         <div class="card-title" id="modeVal" style="color: var(--accent-orange); font-size: 1.1rem;">PARK</div>
         <div class="val-large" id="speedVal">0</div>
         <div class="unit" style="font-size: 0.8rem;">🏁 KM/H &nbsp;|&nbsp; <span id="rpmVal">0</span> RPM</div>
-        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;" id="driveStatus">— READY TO RIDE —</div>
+        <!-- STATUS BADGE TERMASUK NOTIF REGEN -->
+        <div class="drive-status-badge" id="driveStatus">— READY TO RIDE —</div>
       </div>
 
       <div class="grid-3">
@@ -288,7 +302,7 @@
       <div class="grid-cells" id="cellContainer"></div>
     </div>
 
-    <!-- RAW DATA STREAM (STANDBY LANGSUNG TAMPIL) -->
+    <!-- RAW DATA STREAM -->
     <div class="raw-section">
       <div class="raw-title">
         <span>RAW BLE DATA STREAM</span>
@@ -296,7 +310,6 @@
       </div>
       <div class="raw-log-box" id="logBox">Terhubung ke BLE...</div>
 
-      <!-- GRID RAW DATA TAMPIL OTOMATIS -->
       <div class="raw-grid" id="rawGridBody">
         <div class="raw-card" style="grid-column: span 2;">
           <div class="raw-card-key">STATUS</div>
@@ -459,12 +472,31 @@
       }
       if (data.r !== undefined) document.getElementById('rpmVal').innerText = data.r;
 
+      // PEMROSESAN ARUS & DAYA TERMASUK DETEKSI REGEN
+      let currentNum = 0;
+      let powerNum = 0;
+
       if (data.a !== undefined) {
-        const cur = parseFloat(data.a).toFixed(1);
-        document.getElementById('currentVal').innerHTML = `${cur} <span class="unit">A</span>`;
-        if (document.getElementById('bmsCurrent')) document.getElementById('bmsCurrent').innerText = cur + "A";
+        currentNum = parseFloat(data.a);
+        document.getElementById('currentVal').innerHTML = `${currentNum.toFixed(1)} <span class="unit">A</span>`;
+        if (document.getElementById('bmsCurrent')) document.getElementById('bmsCurrent').innerText = currentNum.toFixed(1) + "A";
       }
-      if (data.p !== undefined) document.getElementById('powerVal').innerHTML = `${Math.abs(data.p)} <span class="unit">W</span>`;
+      if (data.p !== undefined) {
+        powerNum = parseFloat(data.p);
+        document.getElementById('powerVal').innerHTML = `${Math.abs(powerNum)} <span class="unit">W</span>`;
+      }
+
+      // LOGIKA DETEKSI NOTIFIKASI REGEN / CHARGING
+      const statusEl = document.getElementById('driveStatus');
+      const isRegenActive = (currentNum < 0 || powerNum < 0 || (data.cr !== undefined && data.cr > 0 && data.r > 0));
+
+      if (isRegenActive) {
+        statusEl.innerText = "⚡ REGEN BRAKING";
+        statusEl.className = "drive-status-badge regen";
+      } else {
+        statusEl.innerText = "— READY TO RIDE —";
+        statusEl.className = "drive-status-badge";
+      }
 
       if (data.sc !== undefined) {
         document.getElementById('socVal').innerHTML = `${data.sc} <span class="unit">%</span>`;
@@ -495,7 +527,6 @@
     } catch (err) {}
   }
 
-  /* RENDERING RAW DATA MODEL KOTAK-KOTAK PRESISI */
   function renderRawGrid(dataObj) {
     const gridEl = document.getElementById('rawGridBody');
     if(!gridEl) return;
