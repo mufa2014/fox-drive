@@ -406,7 +406,7 @@
       tabDash.classList.add('active'); tabBat.classList.remove('active');
     } else {
       btnBat.classList.add('active'); btnDash.classList.remove('active');
-      tabBat.classList.add('active'); tabDash.classList.remove('active');
+      tabBat.classList.add('active'); tabBat.classList.remove('active');
     }
   }
 
@@ -505,8 +505,12 @@
         document.getElementById('powerVal').innerHTML = `${Math.abs(powerNum)} <span class="unit">W</span>`;
       }
 
+      // LOGIKA REGEN DENGAN BATAS THRESHOLD (-1.0 A / -50 W) DAN SPEED/RPM > 0
       const statusEl = document.getElementById('driveStatus');
-      const isRegenActive = (currentNum < 0 || powerNum < 0 || (data.cr !== undefined && data.cr > 0 && data.r > 0));
+      const currentSpeed = parseFloat(document.getElementById('speedVal').innerText) || 0;
+      const currentRpm = parseFloat(document.getElementById('rpmVal').innerText) || 0;
+
+      const isRegenActive = (currentSpeed > 0 || currentRpm > 0) && (currentNum < -1.0 || powerNum < -50);
 
       if (isRegenActive) {
         statusEl.innerText = "⚡ REGEN BRAKING";
